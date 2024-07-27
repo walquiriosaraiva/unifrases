@@ -1,96 +1,51 @@
 <?php
 
-Auth::routes();
-Route::get('/', 'PrincipalController@home');
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\BarangController;
+use App\Http\Controllers\PrincipalController;
+use Illuminate\Support\Facades\Route;
+
+Route::get('/login', [AuthController::class, 'index'])->name('login')->middleware('guest');
+Route::post('/login', [AuthController::class, 'authenticate']);
+Route::get('/register', [AuthController::class, 'register']);
+Route::post('/register', [AuthController::class, 'process']);
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout');
+
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
+Route::get('admin', [DashboardController::class, 'index'])->middleware('auth')->name('admin');
+
+Route::resource('/barang', BarangController::class)->middleware('auth');
+
+Route::get('/', [PrincipalController::class, 'home']);
 
 
-Route::get('teste', 'PrincipalController@get')->name('teste.get');
-Route::post('teste', 'PrincipalController@post')->name('teste.post');
-Route::get('home', 'PrincipalController@home')->name('principal.home');
-Route::get('apresentacao', 'PrincipalController@apresentacao')->name('principal.apresentacao');
-Route::get('instrucao', 'PrincipalController@instrucao')->name('principal.instrucao');
-Route::get('contato', 'PrincipalController@contato')->name('principal.contato');
-Route::get('libratos', 'PrincipalController@libratos')->name('principal.libratos');
-Route::get('libror', 'PrincipalController@libror')->name('principal.libror');
-Route::get('unifrazinho', 'PrincipalController@unifrazinho')->name('principal.unifrazinho');
-Route::get('links', 'PrincipalController@links')->name('principal.links');
-Route::get('biblioteca', 'PrincipalController@biblioteca')->name('principal.biblioteca');
-Route::post('home', 'PrincipalController@store')->name('principal.store');
-Route::post('fetch', 'PrincipalController@fetch')->name('principal.fetch');
-Route::post('idiomapesquisado', 'PrincipalController@idiomapesquisado')->name('principal.idiomapesquisado');
-Route::post('idiomatraduzir', 'PrincipalController@idiomatraduzir')->name('principal.idiomatraduzir');
-Route::post('enviarfraseemail', 'PrincipalController@enviarfraseemail')->name('principal.enviarfraseemail');
-Route::post('enviarcontato', 'PrincipalController@enviarcontato')->name('principal.enviarcontato');
-Route::post('entrarchat', 'PrincipalController@entrarchat')->name('principal.entrarchat');
-Route::post('sairchat', 'PrincipalController@sairchat')->name('principal.sairchat');
-Route::post('enviamensagemchat', 'PrincipalController@enviamensagemchat')->name('principal.enviamensagemchat');
-Route::post('verificarusuarioonline', 'PrincipalController@verificarusuarioonline')->name('principal.verificarusuarioonline');
-Route::post('enviamensagemchat', 'PrincipalController@enviamensagemchat')->name('principal.enviamensagemchat');
-Route::post('gravarmensagemchat', 'PrincipalController@gravarmensagemchat')->name('principal.gravarmensagemchat');
-Route::post('idiomalink', 'PrincipalController@idiomaLink')->name('principal.idiomalink');
+Route::get('apresentacao', [PrincipalController::class, 'apresentacao'])->name('principal.apresentacao');
+Route::get('biblioteca', [PrincipalController::class, 'biblioteca'])->name('principal.biblioteca');
+Route::get('contato', [PrincipalController::class, 'contato'])->name('principal.contato');
+Route::get('instrucao', [PrincipalController::class, 'instrucao'])->name('principal.instrucao');
+Route::get('libratos', [PrincipalController::class, 'libratos'])->name('principal.libratos');
+Route::get('libror', [PrincipalController::class, 'libror'])->name('principal.libror');
+Route::get('unifrazinho', [PrincipalController::class, 'unifrazinho'])->name('principal.unifrazinho');
+Route::get('links', [PrincipalController::class, 'links'])->name('principal.links');
 
-Route::group(['prefix' => 'admin'], function () {
+Route::post('enviamensagemchat', [PrincipalController::class, 'enviamensagemchat'])->name('principal.enviamensagemchat');
+Route::post('verificarusuarioonline', [PrincipalController::class, 'verificarusuarioonline'])->name('principal.verificarusuarioonline');
+Route::post('gravarmensagemchat', [PrincipalController::class, 'gravarmensagemchat'])->name('principal.gravarmensagemchat');
+Route::post('idiomalink', [PrincipalController::class, 'idiomaLink'])->name('principal.idiomalink');
 
-    // Rota principal do administrador
-    Route::get('/', 'AdministradorController@index')->name('admin');
-    //Rotas de cadastro
-    Route::group(['prefix' => 'cadastrar'], function () {
-
-        Route::get('idiomas', 'IdiomasController@create')->name('idiomas.create');
-        Route::post('idiomas', 'IdiomasController@store')->name('idiomas.store');
-        Route::get('frases', 'FrasesController@create')->name('frases.create');
-        Route::post('frases', 'FrasesController@store')->name('frases.store');
-
-        Route::get('user', 'UserController@create')->name('user.create');
-        Route::post('user', 'UserController@store')->name('user.store');
-    });
-
-    // Rotas de controle
-    Route::group(['prefix' => 'controle'], function () {
-
-        Route::get('idiomas', 'IdiomasController@show')->name('idiomas.show');
-        Route::post('idiomas', 'IdiomasController@show')->name('idiomas.show');
-        Route::post('idiomas', 'IdiomasController@pesquisa')->name('idiomas.pesquisa');
-
-        Route::get('frases', 'FrasesController@show')->name('frases.show');
-        Route::post('frases', 'FrasesController@show')->name('frases.show');
-        Route::post('frases', 'FrasesController@pesquisa')->name('frases.pesquisa');
-
-        Route::get('user', 'UserController@show')->name('user.show');
-        Route::post('user', 'UserController@show')->name('user.show');
-    });
-
-    // Rotas de Edição
-    Route::group(['prefix' => 'editar'], function () {
-
-        Route::get('idiomas/{id}', 'IdiomasController@edit')->name('idiomas.edit');
-        Route::post('idiomas', 'IdiomasController@update')->name('idiomas.update');
-
-        Route::get('frases/{id}', 'FrasesController@edit')->name('frases.edit');
-        Route::post('frases', 'FrasesController@update')->name('frases.update');
-
-        Route::get('/', 'AdministradorController@edit')->name('admin.edit');
-        Route::post('/', 'AdministradorController@update')->name('admin.update');
-
-        Route::get('user/{id}', 'UserController@edit')->name('user.edit');
-        Route::post('user', 'UserController@update')->name('user.update');
-    });
-
-    // Rotas de Exclusão
-    Route::group(['prefix' => 'deletar'], function () {
-
-        Route::get('idiomas/{id}', 'IdiomasController@delete')->name('idiomas.delete');
-        Route::get('frases/{id}', 'FrasesController@delete')->name('frases.delete');
-        Route::get('user/{id}', 'UserController@delete')->name('user.delete');
-    });
-
-    Route::group(['prefix' => 'processar'], function () {
-        Route::post('processa', 'FrasesController@processa')->name('processa.planilha');
-    });
-
-});
+Route::post('fetch', [PrincipalController::class, 'fetch'])->name('principal.fetch');
+Route::post('idiomapesquisado', [PrincipalController::class, 'idiomapesquisado'])->name('principal.idiomapesquisado');
+Route::post('idiomatraduzir', [PrincipalController::class, 'idiomatraduzir'])->name('principal.idiomatraduzir');
+Route::post('enviarfraseemail', [PrincipalController::class, 'enviarfraseemail'])->name('principal.enviarfraseemail');
+Route::post('enviarcontato', [PrincipalController::class, 'enviarcontato'])->name('principal.enviarcontato');
+Route::post('entrarchat', [PrincipalController::class, 'entrarchat'])->name('principal.entrarchat');
+Route::post('sairchat', [PrincipalController::class, 'sairchat'])->name('principal.sairchat');
 
 
-
+//idiomas.show
+//frases.show
+//user.show
+//admin.edit
 
 

@@ -1,33 +1,64 @@
-# Leia-me #
+# Andis Dev
+## _Turorial Login Register CRUD Laravel 10_
 
-Este é um projeto que tem como objetivo unir pessoas de todas as linguas.
+## Features
 
-### O nosso link principal? ###
+- Login User
+- Logout User
+- Register User
+- Validate email
+- CRUD Laravel 10
+- Validation
+- Sweat Alert
+- Datatable
+- Javascript Validation
+- FontAwesome 6
 
-* Laravel
-* Versão 1.0.0
-* [Link unifrases](http://www.unifrases.com/site/Default.aspx)
+## Required
 
-## Criar as Tabelas: ###
-* `php artisan key:generate`
-* `php artisan migrate`
-* `php artisan config:clear`
-* `php artisan config:cache`
+- Laravel 10
+- PHP newer version
+- Composer
+- Datatable
+- Sweetalert
+- Javascript
+- FontAwesome 6
+- Server Xampp/Laragon
 
-## Atualizar as tabelas ###
-* `php artisan migrate:refresh`
+## Installation
 
-## Atualizar as tabelas e inserindo dados###
-* `php artisan migrate:refresh --seed`
+Download or clone source code <br>
+create database laravel
 
-## Inserir dados em uma tabela expecifica
-* `php artisan db:seed --class=BancoSeeder`
+Install the dependencies and start the server.
 
-## Caso precise gerar novamente o dumpautoload das classes novas
-* `Exemplo: Cridou a classe BancoSeeder tem que rodar o comando abaixo e em seguida`
-* `composer dumpautoload -o`
-* `php artisan db:seed --class=BancoSeeder`
+run composer update <br>
+run php artisan migrate:fresh <br>
+run php artisan serve <br>
 
-## Permissões nas pastas 
-* `sudo chgrp -R www-data storage`
-* `sudo chmod -R ug+rwx storage`
+open link at your browser
+http://127.0.0.1:8000
+
+## Demo Link
+https://login-register-crud-laravel.andisdev.tech/
+
+## Screenshoot
+![logo](https://github.com/AndiSyarif/login-register-crud-laravel-10/blob/main/public/assets/img/ss7.png)
+![logo](https://github.com/AndiSyarif/login-register-crud-laravel-10/blob/main/public/assets/img/ss8.png)
+![logo](https://github.com/AndiSyarif/login-register-crud-laravel-10/blob/main/public/assets/img/ss9.png)
+![logo](https://github.com/AndiSyarif/login-register-crud-laravel-10/blob/main/public/assets/img/ss10.png)
+![logo](https://github.com/AndiSyarif/login-register-crud-laravel-10/blob/main/public/assets/img/ss11.png)
+![logo](https://github.com/AndiSyarif/login-register-crud-laravel-10/blob/main/public/assets/img/ss12.png)
+![logo](https://github.com/AndiSyarif/login-register-crud-laravel-10/blob/main/public/assets/img/ss1.png)
+![logo](https://github.com/AndiSyarif/login-register-crud-laravel-10/blob/main/public/assets/img/ss2.png)
+![logo](https://github.com/AndiSyarif/login-register-crud-laravel-10/blob/main/public/assets/img/ss3.png)
+![logo](https://github.com/AndiSyarif/login-register-crud-laravel-10/blob/main/public/assets/img/ss4.png)
+![logo](https://github.com/AndiSyarif/login-register-crud-laravel-10/blob/main/public/assets/img/ss5.png)
+![logo](https://github.com/AndiSyarif/login-register-crud-laravel-10/blob/main/public/assets/img/ss6.png)
+
+## License
+
+Andis Dev
+
+**Free for learn !**
+

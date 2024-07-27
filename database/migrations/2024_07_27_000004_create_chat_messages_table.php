@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class CreateChatMessagesTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -15,12 +15,15 @@ class CreateChatMessagesTable extends Migration
     {
         Schema::create('chat_messages', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('from_nickname');
-            $table->integer('to_nickname');
+            $table->integer('from_nickname')->unsigned();
+            $table->integer('to_nickname')->unsigned();
             $table->text('message');
             $table->integer('status');
-            $table->rememberToken();
+            $table->string('remember_token', 100)->nullable();
             $table->timestamps();
+
+            $table->foreign('from_nickname')->references('id')->on('chat_users')->onDelete('cascade');
+            $table->foreign('to_nickname')->references('id')->on('chat_users')->onDelete('cascade');
         });
     }
 
@@ -33,4 +36,4 @@ class CreateChatMessagesTable extends Migration
     {
         Schema::dropIfExists('chat_messages');
     }
-}
+};

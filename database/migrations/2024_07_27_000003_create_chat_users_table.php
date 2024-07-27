@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class CreateChatUsersTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -16,7 +16,7 @@ class CreateChatUsersTable extends Migration
         Schema::create('chat_users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nickname', 50)->unique();
-            $table->rememberToken();
+            $table->string('remember_token', 100)->nullable();
             $table->timestamps();
         });
     }
@@ -30,4 +30,4 @@ class CreateChatUsersTable extends Migration
     {
         Schema::dropIfExists('chat_users');
     }
-}
+};

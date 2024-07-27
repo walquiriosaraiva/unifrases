@@ -1,68 +1,99 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="pt-br">
 
-@section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Login</div>
-                <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ route('login') }}">
-                        {{ csrf_field() }}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ $title }} | Unifrases </title>
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail: </label>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
+    <link rel="stylesheet" href="/assets/plugins/fontawesome-free/css/all.min.css">
 
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
+    {{-- <link rel="stylesheet" href="/assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css"> --}}
 
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Senha: </label>
+    <link rel="stylesheet" href="/assets/dist/css/adminlte.min.css">
 
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
+</head>
 
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
+<body class="hold-transition login-page">
 
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Lembrar-me
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
+    @include('sweetalert::alert')
 
-                        <div class="form-group">
-                            <div class="col-md-8 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Entrar
-                                </button>
+    <div class="login-box">
 
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    Esqueceu sua senha?
-                                </a>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+        <div class="card card-outline card-primary">
+            <div class="card-header text-center">
+                <a href="/" class="h1"><b>Unifrases</b> Acesso Restrito</a>
             </div>
+            <div class="card-body">
+                <p class="login-box-msg">Informe e-mail e senha para acesso</p>
+                <form class="needs-validation" novalidate action="/login" method="POST">
+                    @csrf
+                    <div class="input-group mb-3">
+                        <input type="email" name="email" class="form-control" placeholder="E-mail" required>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="password" name="password" class="form-control" placeholder="Senha" required>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="icheck-primary">
+                                <input type="checkbox" id="remember">
+                                <label for="remember">
+                                    Lembrar-me
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-4">
+                            <button type="submit" class="btn btn-primary btn-block">Entrar</button>
+                        </div>
+                        <p class="mb-0">
+                            <a href="/register" class="text-center">Cadastre-se</a>
+                        </p>
+                    </div>
+                </form>
+            </div>
+
         </div>
+
     </div>
-</div>
-@endsection
+
+    <script src="/assets/plugins/jquery/jquery.min.js"></script>
+
+    <script src="/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <script src="/assets/dist/js/adminlte.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                var forms = document.getElementsByClassName('needs-validation');
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
+</body>
+
+</html>
