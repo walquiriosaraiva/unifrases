@@ -276,7 +276,7 @@
 
     function idiomaEntradaLink(idioma){
         var _token = $('input[name="_token"]').val();
-        $('#texto').focus();
+        //$('#texto').focus();
         $.ajax({
                 url: "{{ route('principal.idiomalink') }}",
                 method: "POST",
@@ -316,6 +316,7 @@
     }
 
     $(document).ready(function () {
+        $('#idiomaEntrada').focus();
         $("#idiomaEntrada").select2({
             templateResult: format,
             templateSelection: formatState,
